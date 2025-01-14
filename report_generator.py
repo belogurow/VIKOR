@@ -69,7 +69,7 @@ def generate_description(file):
 def generate_criteria_table(file, table):
     file.write("### Матрица критериев\n")
     file.write("- $i$ - альтернатива\n")
-    file.write("- $j$ - критерий\n")
+    file.write("- $j$ - критерий\n\n")
 
     file.write("$$\n")
     file.write("f_{ij} = ")
@@ -112,7 +112,8 @@ def generate_ideal_and_antiideal_solutions(file, transposed_matrix):
 
 def generate_s_and_r(file, result, criteria_matrix, weights, max_f, min_f):
     file.write("### Вычисление S и R\n")
-    file.write("Формула для $S_i$: $$ S_i = \sum_{j=1}^m w_j \cdot \\frac{f^*_j - f_{ij}}{f^*_j - f^-_j} $$\n")
+    file.write("Формула для $S_i$:\n\n")
+    file.write("$$ S_i = \sum_{j=1}^m w_j \cdot \\frac{f_j^* - f_{ij}}{f_j^* - f^-_j} $$\n\n")
 
     # Вычисление S
     for i, alternative in enumerate(criteria_matrix, start=1):
@@ -134,7 +135,7 @@ def generate_s_and_r(file, result, criteria_matrix, weights, max_f, min_f):
     file.write("\n")
 
     # Вычисление R
-    file.write("Формула для $R_i$: $$ R_i = \max_j \left(w_j \cdot \\frac{f^*_j - f_{ij}}{f^*_j - f^-_j}\\right) $$\n")
+    file.write("Формула для $R_i$:\n\n$$ R_i = \max_j \left(w_j \cdot \\frac{f_j^* - f_{ij}}{f_j^* - f^-_j}\\right) $$\n\n")
     for i, alternative in enumerate(criteria_matrix, start=1):
         file.write(f"* $R_{i} = \max(")
         elements = []
@@ -175,7 +176,7 @@ def generate_max_min_s_r(file, result):
 def generate_q(file, criteria_matrix, result, max_s, min_s, max_r, min_r, compromise_weight):
     file.write("\n### Вычисление Q\n")
     file.write(
-        "Формула для $Q_i$: $$ Q_i = v \cdot \\frac{S_i - S^*}{S^- - S^*} + (1-v) \cdot \\frac{R_i - R^*}{R^- - R^*} $$\n")
+        "Формула для $Q_i$:\n\n$$ Q_i = v \cdot \\frac{S_i - S^*}{S^- - S^*} + (1-v) \cdot \\frac{R_i - R^*}{R^- - R^*} $$\n\n")
     file.write(f"Вес компромисса: $v = {compromise_weight}$\n")
 
     for i, alternative in enumerate(criteria_matrix, start=1):
